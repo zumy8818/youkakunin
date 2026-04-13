@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="炭火焼管理" />
+  <title>フォーシーズン炭火焼 管理</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <h1 class="header-title" id="page-title">支出登録</h1>
+    </header>
+
+    <main class="main-content">
+
+      <!-- 画面1: 支出登録 -->
+      <section id="screen-register" class="screen active">
+        <form id="register-form" class="card">
+          <div class="form-group">
+            <label class="form-label">金額 <span class="required">*</span></label>
+            <div class="amount-input-wrap">
+              <span class="yen-sign">¥</span>
+              <input type="number" id="input-amount" class="form-input amount-input"
+                inputmode="numeric" pattern="[0-9]*" placeholder="0" min="0" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">区分 <span class="required">*</span></label>
+            <div class="category-buttons">
+              <button type="button" class="cat-btn" data-cat="設備投資">設備投資</button>
+              <button type="button" class="cat-btn" data-cat="原材料費">原材料費</button>
+              <button type="button" class="cat-btn" data-cat="消耗品費">消耗品費</button>
+              <button type="button" class="cat-btn" data-cat="宣伝広告費">宣伝広告費</button>
+              <button type="button" class="cat-btn" data-cat="リサーチ">リサーチ</button>
+              <button type="button" class="cat-btn" data-cat="その他">その他</button>
+            </div>
+            <input type="hidden" id="input-category" required />
+          </div>
+
+          <!-- 原材料費のみ表示 -->
+          <div id="material-fields" class="material-fields hidden">
+            <div class="material-row">
+              <div class="form-group" style="flex:1;margin-bottom:0">
+                <label class="form-label">数量 <span class="required">*</span></label>
+                <input type="number" id="input-quantity" class="form-input"
+                  inputmode="decimal" placeholder="例: 1" min="0" step="any" />
+              </div>
+              <div class="form-group" style="width:90px;margin-bottom:0">
+                <label class="form-label">単位</label>
+                <select id="input-unit" class="form-input form-select">
+                  <option value="g">g</option>
+                  <option value="kg">kg</option>
+                  <option value="ml">ml</option>
+                  <option value="本">本</option>
+                  <option value="個">個</option>
+                </select>
+              </div>
+            </div>
+            <div class="unit-price-display" id="unit-price-display"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="input-item">品目名 <span class="required">*</span></label>
+            <div class="combobox-wrap">
+              <input type="text" id="input-item" class="form-input" placeholder="例：木炭、鉄板など"
+                required autocomplete="off" />
+              <div class="combobox-dropdown hidden" id="item-dropdown"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="input-supplier">購入先（任意）</label>
+            <div class="combobox-wrap">
+              <input type="text" id="input-supplier" class="form-input"
+                placeholder="例：業務スーパー、Amazon など" autocomplete="off" />
+              <div class="combobox-dropdown hidden" id="supplier-dropdown"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="input-memo">メモ（任意）</label>
+            <textarea id="input-memo" class="form-input form-textarea" placeholder="備考など" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="input-date">日付</label>
+            <input type="date" id="input-date" class="form-input" required />
+          </div>
+
+          <button type="submit" class="btn-primary btn-full">登録する</button>
+        </form>
+        <div id="register-toast" class="toast hidden">登録しました</div>
+      </section>
+
+      <!-- 画面2: 支出一覧 -->
+      <section id="screen-list" class="screen">
+        <div class="summary-bar card">
+          <div class="summary-item">
+            <span class="summary-label">今月の合計</span>
+            <span class="summary-value" id="monthly-total">¥0</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-item">
+            <span class="summary-label">累計合計</span>
+            <span class="summary-value" id="total-all">¥0</span>
+          </div>
+        </div>
+        <div class="filter-row">
+          <button class="filter-btn active" data-filter="全て">全て</button>
+          <button class="filter-btn" data-filter="設備投資">設備投資</button>
+          <button class="filter-btn" data-filter="原材料費">原材料費</button>
+          <button class="filter-btn" data-filter="消耗品費">消耗品費</button>
+          <button class="filter-btn" data-filter="宣伝広告費">宣伝広告費</button>
+          <button class="filter-btn" data-filter="リサーチ">リサーチ</button>
+          <button class="filter-btn" data-filter="その他">その他</button>
+        </div>
+        <div id="expense-list" class="expense-list"></div>
+      </section>
+
+      <!-- 画面3: 在庫表 -->
+      <section id="screen-inventory" class="screen">
+        <div class="inventory-note card">
+          <span class="note-icon">ℹ</span>
+          設備投資・原材料費の登録内容を表示しています
+        </div>
+        <div id="inventory-list" class="expense-list"></div>
+      </section>
+
+      <!-- 画面4: レシピ -->
+      <section id="screen-recipe" class="screen">
+        <!-- レシピ登録フォーム -->
+        <div class="card" id="recipe-form-card">
+          <div class="section-toggle-row">
+            <span class="section-toggle-label">新規レシピ登録</span>
+            <button type="button" class="toggle-btn" id="recipe-form-toggle">▲ 閉じる</button>
+          </div>
+          <form id="recipe-form">
+            <div class="form-group">
+              <label class="form-label" for="input-recipe-name">商品名 <span class="required">*</span></label>
+              <input type="text" id="input-recipe-name" class="form-input" placeholder="例：豚バラ炭火焼" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">ステータス</label>
+              <div class="status-buttons">
+                <button type="button" class="status-btn selected" data-status="試作中">試作中</button>
+                <button type="button" class="status-btn" data-status="採用">採用</button>
+                <button type="button" class="status-btn" data-status="却下">却下</button>
+              </div>
+              <input type="hidden" id="input-recipe-status" value="試作中" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">原材料</label>
+              <div id="ingredient-rows"></div>
+              <button type="button" class="btn-add-ingredient" id="add-ingredient-btn">＋ 原材料を追加</button>
+            </div>
+
+            <div class="total-cost-bar">
+              <span class="total-cost-label">合計原価</span>
+              <span class="total-cost-value" id="recipe-total-cost">¥0</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-recipe-memo">メモ（焼き時間・炭種・評価など）</label>
+              <textarea id="input-recipe-memo" class="form-input form-textarea" placeholder="備考など" rows="2"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary btn-full">レシピを保存</button>
+          </form>
+        </div>
+
+        <!-- レシピ一覧 -->
+        <div class="filter-row" style="margin-top:4px">
+          <button class="recipe-filter-btn active" data-rfilter="全て">全て</button>
+          <button class="recipe-filter-btn" data-rfilter="試作中">試作中</button>
+          <button class="recipe-filter-btn" data-rfilter="採用">採用</button>
+          <button class="recipe-filter-btn" data-rfilter="却下">却下</button>
+        </div>
+        <div id="recipe-list"></div>
+      </section>
+
+    </main>
+
+    <!-- ボトムナビ（4タブ） -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-screen="register" data-title="支出登録">
+        <span class="nav-icon">＋</span>
+        <span class="nav-label">支出登録</span>
+      </button>
+      <button class="nav-btn" data-screen="list" data-title="支出一覧">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">支出一覧</span>
+      </button>
+      <button class="nav-btn" data-screen="inventory" data-title="在庫表">
+        <span class="nav-icon">📦</span>
+        <span class="nav-label">在庫表</span>
+      </button>
+      <button class="nav-btn" data-screen="recipe" data-title="レシピ">
+        <span class="nav-icon">🍖</span>
+        <span class="nav-label">レシピ</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,944 @@
+/* ===== リセット & ベース ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f5f0eb;
+  --surface: #fff;
+  --primary: #c0392b;
+  --primary-dark: #962d22;
+  --primary-light: #f9e8e7;
+  --text: #1a1a1a;
+  --text-muted: #7a7a7a;
+  --border: #e0d8d0;
+  --cat-設備投資: #2980b9;
+  --cat-原材料費: #27ae60;
+  --cat-消耗品費: #8e44ad;
+  --cat-宣伝広告費: #e67e22;
+  --cat-リサーチ: #16a085;
+  --cat-その他: #7f8c8d;
+  --radius: 12px;
+  --nav-h: 64px;
+  --header-h: 54px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ===== ヘッダー ===== */
+.header {
+  height: var(--header-h);
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ===== メインコンテンツ ===== */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  padding-bottom: calc(var(--nav-h) + 16px);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== スクリーン切り替え ===== */
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* ===== カード ===== */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* ===== フォーム ===== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.required {
+  color: var(--primary);
+}
+
+.form-input {
+  width: 100%;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: #faf8f5;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  border-color: var(--primary);
+  background: #fff;
+}
+
+.form-textarea {
+  resize: none;
+  line-height: 1.5;
+}
+
+/* 金額入力 */
+.amount-input-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.yen-sign {
+  position: absolute;
+  left: 14px;
+  font-size: 18px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.amount-input {
+  padding-left: 34px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.amount-input::placeholder {
+  color: #ccc;
+  font-weight: 400;
+}
+
+/* 区分ボタン */
+.category-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.cat-btn {
+  padding: 11px 4px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: #faf8f5;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.cat-btn:active {
+  transform: scale(0.96);
+}
+
+.cat-btn.selected[data-cat="設備投資"] {
+  background: #e8f4fb;
+  border-color: var(--cat-設備投資);
+  color: var(--cat-設備投資);
+}
+
+.cat-btn.selected[data-cat="原材料費"] {
+  background: #e8f8ed;
+  border-color: var(--cat-原材料費);
+  color: var(--cat-原材料費);
+}
+
+.cat-btn.selected[data-cat="消耗品費"] {
+  background: #f3e8fb;
+  border-color: var(--cat-消耗品費);
+  color: var(--cat-消耗品費);
+}
+
+.cat-btn.selected[data-cat="宣伝広告費"] {
+  background: #fdf0e3;
+  border-color: var(--cat-宣伝広告費);
+  color: var(--cat-宣伝広告費);
+}
+
+.cat-btn.selected[data-cat="リサーチ"] {
+  background: #e3f4f0;
+  border-color: var(--cat-リサーチ);
+  color: var(--cat-リサーチ);
+}
+
+.cat-btn.selected[data-cat="その他"] {
+  background: #f0f0f0;
+  border-color: var(--cat-その他);
+  color: var(--cat-その他);
+}
+
+/* ===== ボタン ===== */
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.05em;
+}
+
+.btn-primary:active {
+  background: var(--primary-dark);
+  transform: scale(0.98);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ===== トースト ===== */
+.toast {
+  position: fixed;
+  bottom: calc(var(--nav-h) + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 100;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+
+.toast.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== サマリーバー ===== */
+.summary-bar {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.summary-item {
+  flex: 1;
+  text-align: center;
+}
+
+.summary-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.summary-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.summary-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+  margin: 0 8px;
+}
+
+/* ===== フィルター ===== */
+.filter-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-row::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-btn {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border: 2px solid var(--border);
+  border-radius: 100px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.filter-btn.active {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
+}
+
+/* ===== 支出リスト ===== */
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.expense-item {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.expense-cat-badge {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.expense-cat-badge.cat-設備投資 {
+  background: #e8f4fb;
+  color: var(--cat-設備投資);
+}
+
+.expense-cat-badge.cat-原材料費 {
+  background: #e8f8ed;
+  color: var(--cat-原材料費);
+}
+
+.expense-cat-badge.cat-消耗品費 {
+  background: #f3e8fb;
+  color: var(--cat-消耗品費);
+}
+
+.expense-cat-badge.cat-宣伝広告費 {
+  background: #fdf0e3;
+  color: var(--cat-宣伝広告費);
+}
+
+.expense-cat-badge.cat-リサーチ {
+  background: #e3f4f0;
+  color: var(--cat-リサーチ);
+}
+
+.expense-cat-badge.cat-その他 {
+  background: #f0f0f0;
+  color: var(--cat-その他);
+}
+
+.expense-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.expense-item-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.expense-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.expense-right {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.expense-amount {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.expense-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.expense-delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  color: #ccc;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+}
+
+.expense-delete:active {
+  color: var(--primary);
+}
+
+.expense-right {
+  padding-right: 8px;
+}
+
+/* 空状態 */
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--text-muted);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.empty-state-text {
+  font-size: 15px;
+}
+
+/* ===== 在庫表メモ ===== */
+.inventory-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 12px 16px;
+}
+
+.note-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ===== ボトムナビ ===== */
+.bottom-nav {
+  height: var(--nav-h);
+  background: #1a1a1a;
+  display: flex;
+  align-items: stretch;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: none;
+  background: none;
+  color: #888;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s, background 0.15s;
+  padding: 0;
+}
+
+.nav-btn.active {
+  color: var(--primary);
+  background: rgba(192,57,43,0.1);
+}
+
+.nav-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* ===== 区切り ===== */
+.month-separator {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding: 8px 4px 4px;
+  letter-spacing: 0.05em;
+}
+
+/* ===== 原材料費 追加フィールド ===== */
+.material-fields {
+  background: #f0f8f2;
+  border: 2px solid #b8e4c4;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.material-fields.hidden {
+  display: none;
+}
+
+.material-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  margin-bottom: 8px;
+}
+
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23999' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+.unit-price-display {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cat-原材料費);
+  min-height: 18px;
+  padding: 2px 0;
+}
+
+.supplier-tag {
+  color: #888;
+}
+
+/* ===== カスタムコンボボックス ===== */
+.combobox-wrap {
+  position: relative;
+}
+
+.combobox-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  z-index: 50;
+  max-height: 220px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.combobox-dropdown.hidden {
+  display: none;
+}
+
+.combobox-option {
+  padding: 13px 16px;
+  font-size: 15px;
+  color: var(--text);
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+
+.combobox-option:last-child {
+  border-bottom: none;
+}
+
+.combobox-option:active,
+.combobox-option:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.unit-price-tag {
+  display: inline-block;
+  background: #e8f8ed;
+  color: var(--cat-原材料費);
+  border-radius: 100px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+/* ===== ステータスボタン ===== */
+.status-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.status-btn {
+  flex: 1;
+  padding: 10px 4px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: #faf8f5;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.status-btn.selected[data-status="試作中"] {
+  background: #fff8e3;
+  border-color: #e2a500;
+  color: #b07d00;
+}
+
+.status-btn.selected[data-status="採用"] {
+  background: #e8f8ed;
+  border-color: var(--cat-原材料費);
+  color: var(--cat-原材料費);
+}
+
+.status-btn.selected[data-status="却下"] {
+  background: #fde8e8;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* ===== 原材料行 ===== */
+.btn-add-ingredient {
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 8px;
+  transition: all 0.15s;
+}
+
+.btn-add-ingredient:active {
+  border-color: var(--cat-原材料費);
+  color: var(--cat-原材料費);
+}
+
+.ingredient-row {
+  background: #faf8f5;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.ingredient-row-top {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ingredient-name-wrap {
+  flex: 1;
+}
+
+.ingredient-name-wrap .form-input {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 15px;
+}
+
+.ing-remove-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.ing-remove-btn:active { color: var(--primary); }
+
+.ingredient-row-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.ing-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ing-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ing-field .form-input {
+  padding: 7px 8px;
+  font-size: 13px;
+}
+
+.ing-unitprice-display {
+  font-size: 12px !important;
+  color: var(--text-muted);
+}
+
+.ing-cost {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  align-self: flex-end;
+  padding-bottom: 4px;
+}
+
+/* ===== 合計原価バー ===== */
+.total-cost-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.total-cost-label {
+  color: #aaa;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.total-cost-value {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* ===== フォームトグル ===== */
+.section-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.section-toggle-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.toggle-btn {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ===== レシピカード ===== */
+.recipe-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+
+.recipe-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  position: relative;
+}
+
+.recipe-name {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.recipe-status-badge {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-trial { background: #fff8e3; color: #b07d00; }
+.status-adopted { background: #e8f8ed; color: var(--cat-原材料費); }
+.status-rejected { background: #fde8e8; color: var(--primary); }
+
+.recipe-delete {
+  position: static;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ===== 原材料テーブル ===== */
+.ingredient-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ingredient-table th {
+  text-align: left;
+  padding: 6px 16px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #faf8f5;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.ingredient-table td {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.ingredient-table td:last-child,
+.ingredient-table th:last-child {
+  text-align: right;
+}
+
+.ing-cost-cell { font-weight: 700; color: var(--primary); }
+
+.no-ingredients {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  text-align: center;
+}
+
+.recipe-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #1a1a1a;
+}
+
+.recipe-total-label { color: #aaa; font-size: 12px; font-weight: 600; }
+.recipe-total-value { color: #fff; font-size: 18px; font-weight: 800; }
+
+.recipe-memo {
+  padding: 8px 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  background: #faf8f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111;
+    --surface: #1e1e1e;
+    --border: #333;
+    --text: #f0f0f0;
+    --text-muted: #999;
+  }
+  .form-input { background: #252525; }
+  .form-input:focus { background: #2a2a2a; }
+  .cat-btn { background: #252525; color: #aaa; }
+  .filter-btn { background: #252525; }
+  .filter-btn.active { background: #f0f0f0; border-color: #f0f0f0; color: #111; }
+  .expense-item { background: #1e1e1e; }
+  .summary-bar { background: #1e1e1e; }
+  .expense-amount { color: #f0f0f0; }
+}

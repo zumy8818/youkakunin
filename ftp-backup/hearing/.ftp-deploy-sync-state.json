@@ -1,0 +1,41 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1775800725156,
+    "data": [
+        {
+            "type": "folder",
+            "name": "assets"
+        },
+        {
+            "type": "file",
+            "name": "favicon.svg",
+            "size": 163,
+            "hash": "8ffbde9092b1fa4de97c9481b76f518b131268c82e7c555041925225b1dab6e0"
+        },
+        {
+            "type": "file",
+            "name": "index.html",
+            "size": 786,
+            "hash": "e94b8df4f1aa82c7721b625b2107078a76efb7948c327c213864524871ddba9b"
+        },
+        {
+            "type": "file",
+            "name": "opengraph.jpg",
+            "size": 36402,
+            "hash": "fa0fd2777dce9ec832e41e223fcfaaea8cdadffbffe57bdb4244596a7cb5cf1e"
+        },
+        {
+            "type": "file",
+            "name": "assets/index-B9Egdc7H.css",
+            "size": 123274,
+            "hash": "ec8ccc6e68056484be3fa2aad2bdd2d56d29f5ca512faeaaf5a5a97ecd6653e8"
+        },
+        {
+            "type": "file",
+            "name": "assets/index-Bhhb_Y_U.js",
+            "size": 528564,
+            "hash": "25fe51da787b8176a92e6dda8d699ba7f6063b26131d13117a5f8a928947d639"
+        }
+    ]
+}

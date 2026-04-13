@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News | {{SHOP_NAME}}</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      height: 300px; background: var(--color-primary);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      color: var(--color-white);
+    }
+    .page-hero .section-label { color: var(--color-accent); }
+    .page-hero h1 { font-family: var(--font-heading); font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; }
+
+    /* --- カテゴリフィルター --- */
+    .filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      max-width: var(--max-width); margin: 0 auto 40px;
+    }
+    .filter-btn {
+      padding: 8px 20px; border: 1px solid var(--color-border);
+      font-size: 0.8rem; letter-spacing: 0.1em; cursor: pointer;
+      background: var(--color-white); color: var(--color-text-muted);
+      font-family: var(--font-body); transition: all 0.2s;
+    }
+    .filter-btn.active {
+      background: var(--color-primary); color: var(--color-white);
+      border-color: var(--color-primary);
+    }
+
+    /* --- 記事リスト --- */
+    .news-list { display: flex; flex-direction: column; gap: 0; }
+    .news-item {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 32px; align-items: center;
+      padding: 32px 0; border-bottom: 1px solid var(--color-border);
+      transition: opacity 0.2s;
+    }
+    .news-item:hover { opacity: 0.7; }
+    .news-thumb { height: 140px; overflow: hidden; }
+    .news-thumb img, .news-thumb.placeholder {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .news-thumb.placeholder {
+      background: var(--color-border); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 0.75rem; color: var(--color-text-muted);
+    }
+    .news-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 8px; }
+    .news-date { font-size: 0.8rem; color: var(--color-text-muted); }
+    .news-cat {
+      font-size: 0.7rem; letter-spacing: 0.1em; padding: 3px 10px;
+      border: 1px solid var(--color-accent); color: var(--color-accent);
+    }
+    .news-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .news-excerpt { font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.7; }
+
+    /* ページネーション */
+    .pagination {
+      display: flex; gap: 8px; justify-content: center; margin-top: 48px;
+    }
+    .page-btn {
+      width: 40px; height: 40px; border: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; cursor: pointer; background: var(--color-white);
+      color: var(--color-text-muted); font-family: var(--font-body); transition: all 0.2s;
+    }
+    .page-btn.active { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
+
+    @media (max-width: 600px) {
+      .news-item { grid-template-columns: 1fr; }
+      .news-thumb { height: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="nav-logo">{{SHOP_NAME}}</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <p class="section-label">Latest News</p>
+  <h1>News</h1>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+
+    <!-- フィルターバー -->
+    <div class="filter-bar">
+      <button class="filter-btn active">すべて</button>
+      <button class="filter-btn">お知らせ</button>
+      <button class="filter-btn">新メニュー</button>
+      <button class="filter-btn">イベント</button>
+    </div>
+
+    <!-- 記事リスト -->
+    <div class="news-list">
+
+      <!-- 記事1 -->
+      <a href="#" class="news-item" style="text-decoration:none;color:inherit;">
+        <div class="news-thumb placeholder">[ サムネイル ]</div>
+        <div>
+          <div class="news-meta">
+            <span class="news-date">{{NEWS_1_DATE}}</span>
+            <span class="news-cat">{{NEWS_1_CAT}}</span>
+          </div>
+          <div class="news-title">{{NEWS_1_TITLE}}</div>
+          <p class="news-excerpt">{{NEWS_1_EXCERPT}}</p>
+        </div>
+      </a>
+
+      <!-- 記事2 -->
+      <a href="#" class="news-item" style="text-decoration:none;color:inherit;">
+        <div class="news-thumb placeholder">[ サムネイル ]</div>
+        <div>
+          <div class="news-meta">
+            <span class="news-date">{{NEWS_2_DATE}}</span>
+            <span class="news-cat">{{NEWS_2_CAT}}</span>
+          </div>
+          <div class="news-title">{{NEWS_2_TITLE}}</div>
+          <p class="news-excerpt">{{NEWS_2_EXCERPT}}</p>
+        </div>
+      </a>
+
+      <!-- 記事3 -->
+      <a href="#" class="news-item" style="text-decoration:none;color:inherit;">
+        <div class="news-thumb placeholder">[ サムネイル ]</div>
+        <div>
+          <div class="news-meta">
+            <span class="news-date">{{NEWS_3_DATE}}</span>
+            <span class="news-cat">{{NEWS_3_CAT}}</span>
+          </div>
+          <div class="news-title">{{NEWS_3_TITLE}}</div>
+          <p class="news-excerpt">{{NEWS_3_EXCERPT}}</p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ページネーション -->
+    <div class="pagination">
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn">›</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>&copy; {{YEAR}} {{SHOP_NAME}}. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

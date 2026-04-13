@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu | {{SHOP_NAME}}</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      height: 300px;
+      background: var(--color-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--color-white);
+    }
+    .page-hero .section-label { color: var(--color-accent); }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+    }
+
+    /* --- メニューカテゴリタブ --- */
+    .menu-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--color-border);
+      max-width: var(--max-width);
+      margin: 0 auto 48px;
+      overflow-x: auto;
+    }
+    .menu-tab {
+      padding: 16px 32px;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+    }
+    .menu-tab.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-accent);
+    }
+
+    /* --- メニューアイテム --- */
+    .menu-category { display: none; }
+    .menu-category.active { display: block; }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+    }
+    .menu-item {
+      background: var(--color-white);
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .menu-item-image {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+    .menu-item-image.placeholder {
+      background: var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.05em;
+    }
+    .menu-item-name { font-weight: 700; margin-bottom: 4px; }
+    .menu-item-desc { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.6; }
+    .menu-item-price {
+      margin-top: 8px;
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      color: var(--color-accent);
+    }
+
+    /* --- セット・注意書き --- */
+    .menu-note {
+      max-width: var(--max-width);
+      margin: 32px auto 0;
+      padding: 20px 24px;
+      border-left: 3px solid var(--color-accent);
+      background: var(--color-white);
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 600px) {
+      .menu-item { flex-direction: column; }
+      .menu-item-image { width: 100%; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="nav-logo">{{SHOP_NAME}}</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ページヒーロー -->
+<div class="page-hero">
+  <p class="section-label">Our Menu</p>
+  <h1>Menu</h1>
+</div>
+
+<!-- メニュー本体 -->
+<section class="section">
+  <div class="section-inner">
+
+    <!-- タブ -->
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="switchTab('drink',this)">Drink</button>
+      <button class="menu-tab" onclick="switchTab('food',this)">Food</button>
+      <button class="menu-tab" onclick="switchTab('sweets',this)">Sweets</button>
+      <!-- カテゴリが少ない場合は削除してOK -->
+    </div>
+
+    <!-- ドリンクメニュー -->
+    <div class="menu-category active" id="cat-drink">
+      <div class="menu-grid">
+        <!-- メニューアイテム 繰り返し追加 -->
+        <div class="menu-item">
+          <div class="menu-item-image placeholder">[ 写真 ]</div>
+          <div>
+            <div class="menu-item-name">{{MENU_D1_NAME}}</div>
+            <div class="menu-item-desc">{{MENU_D1_DESC}}</div>
+            <div class="menu-item-price">¥{{MENU_D1_PRICE}}</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-image placeholder">[ 写真 ]</div>
+          <div>
+            <div class="menu-item-name">{{MENU_D2_NAME}}</div>
+            <div class="menu-item-desc">{{MENU_D2_DESC}}</div>
+            <div class="menu-item-price">¥{{MENU_D2_PRICE}}</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-image placeholder">[ 写真 ]</div>
+          <div>
+            <div class="menu-item-name">{{MENU_D3_NAME}}</div>
+            <div class="menu-item-desc">{{MENU_D3_DESC}}</div>
+            <div class="menu-item-price">¥{{MENU_D3_PRICE}}</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-image placeholder">[ 写真 ]</div>
+          <div>
+            <div class="menu-item-name">{{MENU_D4_NAME}}</div>
+            <div class="menu-item-desc">{{MENU_D4_DESC}}</div>
+            <div class="menu-item-price">¥{{MENU_D4_PRICE}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- フードメニュー -->
+    <div class="menu-category" id="cat-food">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-image placeholder">[ 写真 ]</div>
+          <div>
+            <div class="menu-item-name">{{MENU_F1_NAME}}</div>
+            <div class="menu-item-desc">{{MENU_F1_DESC}}</div>
+            <div class="menu-item-price">¥{{MENU_F1_PRICE}}</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-image placeholder">[ 写真 ]</div>
+          <div>
+            <div class="menu-item-name">{{MENU_F2_NAME}}</div>
+            <div class="menu-item-desc">{{MENU_F2_DESC}}</div>
+            <div class="menu-item-price">¥{{MENU_F2_PRICE}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- スイーツメニュー -->
+    <div class="menu-category" id="cat-sweets">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-image placeholder">[ 写真 ]</div>
+          <div>
+            <div class="menu-item-name">{{MENU_S1_NAME}}</div>
+            <div class="menu-item-desc">{{MENU_S1_DESC}}</div>
+            <div class="menu-item-price">¥{{MENU_S1_PRICE}}</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-image placeholder">[ 写真 ]</div>
+          <div>
+            <div class="menu-item-name">{{MENU_S2_NAME}}</div>
+            <div class="menu-item-desc">{{MENU_S2_DESC}}</div>
+            <div class="menu-item-price">¥{{MENU_S2_PRICE}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 注意書き -->
+    <div class="menu-note">
+      ※ 価格はすべて税込です。<br>
+      ※ アレルギーをお持ちの方はスタッフまでお申し付けください。<br>
+      ※ 季節・仕入れ状況によりメニューが変わる場合があります。
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>&copy; {{YEAR}} {{SHOP_NAME}}. All rights reserved.</p>
+</footer>
+
+<script>
+function switchTab(cat, btn) {
+  document.querySelectorAll('.menu-category').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.menu-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('cat-' + cat).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

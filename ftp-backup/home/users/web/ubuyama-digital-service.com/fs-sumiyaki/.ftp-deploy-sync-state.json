@@ -1,0 +1,71 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1775970085399,
+    "data": [
+        {
+            "type": "file",
+            "name": ".replit",
+            "size": 532,
+            "hash": "d9a2ca9d207a23cb7d2418a4abd71975a3181633c17f986e6f71b2cc37f4f624"
+        },
+        {
+            "type": "file",
+            "name": "index.js",
+            "size": 3647,
+            "hash": "790da39fdbb53b4129466448a701e3e30d00e4cf9bcd36a8a97194bb59778b24"
+        },
+        {
+            "type": "file",
+            "name": "package-lock.json",
+            "size": 29334,
+            "hash": "94a05b6bb5ed4f2d337340edfe77b427a80d2a5105c8c8aa471c97bd1023240e"
+        },
+        {
+            "type": "file",
+            "name": "package.json",
+            "size": 267,
+            "hash": "fa1ab809bec4fa174a98c7085ca8a74a47b8c2f3577eabc0738eed7253dd26ce"
+        },
+        {
+            "type": "folder",
+            "name": "public"
+        },
+        {
+            "type": "file",
+            "name": "replit.md",
+            "size": 1426,
+            "hash": "bd92c6b3d2e7810b9200e2d9908867e67152a51abb0a58344e7b452b6ae21edf"
+        },
+        {
+            "type": "file",
+            "name": "public/app.js",
+            "size": 22412,
+            "hash": "fc8cebcb01f594b00e5586018c02892927a7f43437c87cac60bb790a09d33833"
+        },
+        {
+            "type": "file",
+            "name": "public/index.html",
+            "size": 10082,
+            "hash": "c07f503accaf3a329a7e74dfb026237b39a666eb2c58194b670bb58af0907d4e"
+        },
+        {
+            "type": "file",
+            "name": "public/manifest.json",
+            "size": 526,
+            "hash": "33620af92437e5e6a661bf91ee177a152bdcd76df59c301fef0a5faa24a7ffc6"
+        },
+        {
+            "type": "file",
+            "name": "public/style.css",
+            "size": 17091,
+            "hash": "43d8161934ff718cda52ebde72c64b9cf5580468826c6629e9c29018bb2c6239"
+        },
+        {
+            "type": "file",
+            "name": "public/sw.js",
+            "size": 710,
+            "hash": "f3b77a6e2fee8e977c1c65696327adfe66dc3cf3d9ba4e4e76b7e07fed23936b"
+        }
+    ]
+}

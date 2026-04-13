@@ -1,0 +1,53 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1776075404721,
+    "data": [
+        {
+            "type": "folder",
+            "name": "cafe"
+        },
+        {
+            "type": "file",
+            "name": "cafe/VARIABLES.md",
+            "size": 4540,
+            "hash": "75724cb69264a64057e74cbb4ba4ce0eef0575e8b2b04e2c74cbc4f88d5f51ed"
+        },
+        {
+            "type": "file",
+            "name": "cafe/about.html",
+            "size": 5793,
+            "hash": "327520fe7e7cac2e0a00e3936f707f4eed8843e60672a20bed36008aba34b630"
+        },
+        {
+            "type": "file",
+            "name": "cafe/contact.html",
+            "size": 8492,
+            "hash": "8f3a91ddbb9748f05f95a5928bf10374ac2be2d8b0306d0d02bf55dc081da84e"
+        },
+        {
+            "type": "file",
+            "name": "cafe/index.html",
+            "size": 7392,
+            "hash": "2231616ef0094788eda10aff7dca60b7ed2107cb2f21c005c2d97a806da2ca0d"
+        },
+        {
+            "type": "file",
+            "name": "cafe/menu.html",
+            "size": 8036,
+            "hash": "317054edfd155a573ab81e37203da39c2aa88493b2da3814661969d1141863b9"
+        },
+        {
+            "type": "file",
+            "name": "cafe/news.html",
+            "size": 5949,
+            "hash": "684f87848d9c1ba0fcd534c9ee2cbb1fbdd79199cf33739382bb6fe421ce158d"
+        },
+        {
+            "type": "file",
+            "name": "cafe/style.css",
+            "size": 4294,
+            "hash": "b2b7572051046db0c1c53856626dc0e3532ed442602791c50e4986d16204d580"
+        }
+    ]
+}
